@@ -13,6 +13,7 @@ servoRight = 2.8        # 2.8  dutycycle
 turnTime = 1.0          #delay required for 90 deg turn adjust
 spinTime = 0.5          #delay required for a 90 deg spin
 moveForward = 5.0       #time to move one body length forward
+moveReverse = 5.0       #time to move one body length backwards
 
 distanceLeft = 0.0      #used in avoidance AI 
 distanceCenter = 0.0    #used in avoidance AI
@@ -182,21 +183,36 @@ def ScanCenter():
 
     
 
-
+ SettleUltSensor()
 
 try:
     while True:
-       
-       SettleUltSensor()
        ScanCenter()
        time.sleep(1)
        
-       if distanceCenter > 10:
+       if distanceCenter > 10:                      #no obstacles ahead go forward
            Forward()
            time.sleep(moveForward)
        else:
            Stop()
-           Scan()
+           ScanLeft()
+           print"Left range = ", distanceLeft
+           ScanRight()
+           print"Right range = ", distanceRight
+           ScanCenter()
+           print"Center range = ", distanceCenter
+           time.sleep(1)            #delay so you can read message, useful for debugging
+           
+           if distanceLeft > distanceRight and distanceLeft > 11:
+               LeftTurn()
+           elif distanceRight > distanceLeft and distanceRight > 11:
+               RightTurn()
+           else:
+               Reverse()
+               time.sleep(moveReverse)
+               Stop()
+               
+            
            
        
         
