@@ -7,13 +7,18 @@ import sys
 GPIO.setmode(GPIO.BCM) # set pin mode broadcom
 
 # variables here so easy to alter
-servoCenter = 7.4   # servo netrual 7.5 dutycycle
-servoLeft = 11.6    # 11.7 dutycycle
-servoRight = 2.8    # 2.8  dutycycle
-turnTime = 1.0      #delay required for 90 deg turn adjust
-spinTime = 0.5      #delay required for a 90 deg spin
+servoCenter = 7.4       # servo netrual 7.5 dutycycle
+servoLeft = 11.6        # 11.7 dutycycle
+servoRight = 2.8        # 2.8  dutycycle
+turnTime = 1.0          #delay required for 90 deg turn adjust
+spinTime = 0.5          #delay required for a 90 deg spin
 
-#set up servo signal GPIO pins
+distanceLeft = 0.0      #used in avoidance AI 
+distanceCenter = 0.0    #used in avoidance AI
+distanceRight = 0.0     #used in avoidance AI
+
+ 
+#set up servo signal GPIO pins 
 servopin = 4    #board 7
 
 #set up ultrasonic sensor signal GPIO pins
@@ -146,18 +151,24 @@ def ScanLeft():
     Scan()
     distanceLeft = distance
     print"Left range = ", distanceLeft
+    
+    return distanceLeft
 
 def ScanRight():
     ServoRight()
     Scan()
     distanceRight = distance
     print"Right range = ", distanceRight
+    
+    return distanceRight
 
 def ScanCenter():
     ServoCenter()
     Scan()
     distanceCenter = distance
     print"Center range = ", distanceCenter
+    
+    return distanceCenter
 
     
     
