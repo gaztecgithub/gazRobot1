@@ -186,7 +186,8 @@ def ScanCenter():
 
 try:
     while True:
-        
+       
+       SettleUltSensor()
        ScanCenter()
        time.sleep(1)
        
