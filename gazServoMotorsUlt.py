@@ -12,6 +12,7 @@ servoLeft = 11.6        # 11.7 dutycycle
 servoRight = 2.8        # 2.8  dutycycle
 turnTime = 1.0          #delay required for 90 deg turn adjust
 spinTime = 0.5          #delay required for a 90 deg spin
+moveForward = 5.0       #time to move one body length forward
 
 distanceLeft = 0.0      #used in avoidance AI 
 distanceCenter = 0.0    #used in avoidance AI
@@ -186,14 +187,17 @@ def ScanCenter():
 try:
     while True:
         
+       ScanCenter()
+       time.sleep(1)
        
-        time.sleep(5)
-        
-        print"Right"
-        time.sleep(5)
-        
-        print"Left"
-        time.sleep(5)
+       if distanceCenter > 10:
+           Forward()
+           time.sleep(moveForward)
+       else:
+           Stop()
+           Scan()
+           
+       
         
 
 except KeyboardInterrupt:
